@@ -9,7 +9,7 @@ type Props = {
   
 const PokemonCard: FunctionComponent<Props> = ({pokemon, borderColor = '#009688'}) => {
   
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<string>(); 
   
   const showBorder = () => {
       setColor(borderColor);
@@ -19,6 +19,9 @@ const PokemonCard: FunctionComponent<Props> = ({pokemon, borderColor = '#009688'
       setColor('#F5F5F5'); //On remet la couleur de la bordure d'origine (gris).
   }
 
+  const formatDate = (date: Date): string => {
+    return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+  }
   return (
     <div className="col s6 m4" onMouseEnter={showBorder} onMouseLeave={hideBorder}>
       <div className="card horizontal" style={{ borderColor: color }}>
@@ -28,7 +31,10 @@ const PokemonCard: FunctionComponent<Props> = ({pokemon, borderColor = '#009688'
         <div className="card-stacked">
           <div className="card-content">
             <p>{pokemon.name}</p>
-            <p><small>{pokemon.created.toString()}</small></p>
+            <p><small>{formatDate(pokemon.created)}</small></p>
+            {pokemon.types.map(type => (
+              <span key={type}>{type}</span>
+            ))}
           </div>
         </div>
       </div> 
