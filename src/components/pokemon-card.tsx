@@ -4,6 +4,7 @@ import './pokemon-card.css';
 //import PokemonList from '../pages/pokemon-list';
 import formatDate from '../helpers/format-date';
 import formatType from '../helpers/format-type';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   pokemon: Pokemon
@@ -13,6 +14,7 @@ type Props = {
 const PokemonCard: FunctionComponent<Props> = ({pokemon, borderColor = '#009688'}) => {
   
   const [color, setColor] = useState<string>(); 
+  const history = useHistory();
   
   const showBorder = () => {
       setColor(borderColor);
@@ -22,9 +24,13 @@ const PokemonCard: FunctionComponent<Props> = ({pokemon, borderColor = '#009688'
       setColor('#F5F5F5'); //On remet la couleur de la bordure d'origine (gris).
   }
 
+  const goToPokemon = (id: number) => {
+    history.push(`/pokemons/${id}`)
+  }
+
 
   return (
-    <div className="col s6 m4" onMouseEnter={showBorder} onMouseLeave={hideBorder}>
+    <div className="col s6 m4" onClick={() => goToPokemon(pokemon.id)} onMouseEnter={showBorder} onMouseLeave={hideBorder}>
       <div className="card horizontal" style={{ borderColor: color }}>
         <div className="card-image"> 
           <img src={pokemon.picture} alt={pokemon.name}/>
