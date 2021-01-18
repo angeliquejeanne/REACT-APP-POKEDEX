@@ -1,4 +1,5 @@
 export default class Pokemon {
+    [x: string]: any;
     // 1. Typage des propiétés d'un pokémon.
     id: number;
     hp: number;
